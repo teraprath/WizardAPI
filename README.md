@@ -23,7 +23,7 @@ Spell spell = new Spell(player -> {
 
     // Spell Logic
 
-}, Spell.ClickType.LEFT, Spell.ClickType.RIGHT, Spell.ClickType.RIGHT);
+}, Spell.ClickType.LEFT, Spell.ClickType.RIGHT, Spell.ClickType.RIGHT); // Combination: L-R-R
 
 // Bind spell to wand
 wand.bind(spell);
