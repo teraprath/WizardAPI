@@ -107,4 +107,12 @@
         </dependency>
     </dependencies>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/teraprath/WizardAPI</url>
+        </repository>
+    </distributionManagement>
+
+
 </project>
