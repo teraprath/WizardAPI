@@ -1,11 +1,16 @@
 # WizardAPI
- Custom Spells & Wands for Paper 1.21+
-> :warning: Project is currently in development and not ready for production.
+ Custom Spells & Wands inspired by Wynncraft
+> ℹ️ Plugin has been tested on **Paper/Purpur: 1.21, 1.21.1**
 
 ## Features
 - Simple & lightweight
-- Easily add custom spells using a click combination (R-L-R, L-R-L, etc.)
-- Bind spells to Wands
+- Create **Custom Spells** (Click-Combinations: L-R-L, R-L-R, etc.)
+- **Bind** spells to **Items** (Wands)
+> ⚠️ This project is in development. Some features may not work correctly.
+
+### Upcoming
+- Built-in Mana System
+- PlaceholderAPI Support
 
 ## Example Usage
 ```java
