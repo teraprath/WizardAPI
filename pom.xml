@@ -12,14 +12,11 @@
     <name>WizardAPI</name>
     <description>Custom Spells and Wands</description>
     <url>https://github.com/teraprath/WizardAPI</url>
-    <scm>
-        <url>https://github.com/teraprath/WizardAPI</url>
-        <connection>scm:git:git://github.com/teraprath/WizardAPI.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:teraprath/WizardAPI.git</developerConnection>
-    </scm>
 
     <properties>
         <java.version>21</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -109,12 +106,5 @@
             <version>4.3.0</version>
         </dependency>
     </dependencies>
-
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/teraprath/WizardAPI</url>
-        </repository>
-    </distributionManagement>
 
 </project>
