@@ -1,2 +1,9 @@
+# jitpack.yml
+jdk:
+  - openjdk21  # Setzt JDK 21 für das Projekt
+
+maven:
+  version: 3.8.5  # Verwendet Maven 3.8.5, um die Anforderungen des Build-Prozesses zu erfüllen
+
 install:
   - mvn install -DskipTests=true -Dmaven.compiler.plugin.version=3.8.1 -Dmaven.plugin.version.shade=3.2.4
