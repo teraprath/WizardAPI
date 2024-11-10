@@ -1,0 +1,6 @@
+# Maven spezifische Ordner
+target/
+
+# IntelliJ IDEA spezifische Dateien und Ordner
+.idea/
+*.iml

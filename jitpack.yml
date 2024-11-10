@@ -1,0 +1,2 @@
+install:
+  - mvn install -DskipTests=true -Dmaven.compiler.plugin.version=3.8.1 -Dmaven.plugin.version.shade=3.2.4
