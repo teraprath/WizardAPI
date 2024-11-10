@@ -4,8 +4,14 @@
   <groupId>dev.mending</groupId>
   <artifactId>WizardAPI</artifactId>
   <name>WizardAPI</name>
-  <version>1.0.0</version>
+  <version>1.0-SNAPSHOT</version>
   <description>Custom Spells and Wands</description>
+  <url>https://github.com/teraprath/WizardAPI</url>
+  <scm>
+    <connection>scm:git:git://github.com/teraprath/WizardAPI.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com:teraprath/WizardAPI.git</developerConnection>
+    <url>https://github.com/teraprath/WizardAPI</url>
+  </scm>
   <build>
     <defaultGoal>clean package</defaultGoal>
     <resources>
@@ -72,6 +78,12 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <url>https://maven.pkg.github.com/teraprath/WizardAPI</url>
+    </repository>
+  </distributionManagement>
   <properties>
     <java.version>21</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
