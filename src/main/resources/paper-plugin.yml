@@ -1,6 +1,0 @@
-name: WizardAPI
-version: '1.0.0'
-main: dev.mending.wizard.plugin.WizardPlugin
-api-version: '1.21'
-authors: [ MrMending ]
-description: Custom Spells & Wands

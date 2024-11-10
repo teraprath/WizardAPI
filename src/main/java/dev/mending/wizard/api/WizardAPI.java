@@ -1,5 +1,6 @@
 package dev.mending.wizard.api;
 
+import de.tr7zw.changeme.nbtapi.NBT;
 import dev.mending.wizard.core.wand.Wand;
 import org.bukkit.inventory.ItemStack;
 
@@ -25,24 +26,20 @@ public class WizardAPI {
     }
 
     // Wand registrieren (Wand-Objekt anstelle eines ItemStack)
-    public void registerWand(Wand wand) {
-        wands.put(wand.getName(), wand);  // Wand wird mit ihrem Namen als Schlüssel gespeichert
+    public void register(Wand wand) {
+        wands.put(wand.getId(), wand);  // Wand wird mit ihrem Namen als Schlüssel gespeichert
     }
 
     // Wand anhand des Namens abrufen
-    public Wand getWandByName(String name) {
-        return wands.get(name);  // Gibt die Wand zurück, die mit dem Namen verknüpft ist
+    public Wand getWandById(String id) {
+        return wands.get(id);  // Gibt die Wand zurück, die mit dem Namen verknüpft ist
     }
 
     // Überprüft, ob ein ItemStack eine Wand repräsentiert
-    public Wand getWandByItem(ItemStack item) {
+    public Wand getWandByItem(ItemStack itemStack) {
         // Hier wird überprüft, ob das Item ein Wand-Item ist.
-        for (Wand wand : wands.values()) {
-            if (wand.getItem().equals(item)) {  // Vergleicht den ItemStack mit dem Wand-Item
-                return wand;
-            }
-        }
-        return null;
+        String id = NBT.get(itemStack, nbt -> (String) nbt.getString("wizard_id"));
+        return wands.get(id);
     }
 
     public boolean isWand(ItemStack itemStack) {

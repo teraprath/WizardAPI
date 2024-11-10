@@ -1,0 +1,10 @@
+name: ${project.name}
+version: '${project.version}'
+main: dev.mending.wizard.plugin.WizardPlugin
+api-version: '1.21'
+authors: [ MrMending ]
+description: ${project.description}
+commands:
+  wizard:
+    description: Wizard API Base Command
+    permission: wizard.command

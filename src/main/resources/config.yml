@@ -1,0 +1,17 @@
+# Check out the wiki for more information: https://github.com/teraprath/WizardAPI/wiki
+clickSequenz:
+  timeout: 1000
+  sound:
+    enabled: true
+    type: BLOCK_NOTE_BLOCK_HAT
+    volume: 0.5
+    pitch: 1.1
+  message:
+    enabled: true
+    # Possible types: ACTIONBAR, TITLE
+    type: TITLE
+    components:
+      left: "<light_purple>L"
+      right: "<light_purple>R"
+      empty: "<gray>_"
+      spacer: " "

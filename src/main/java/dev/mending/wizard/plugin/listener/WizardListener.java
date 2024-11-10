@@ -3,23 +3,29 @@ package dev.mending.wizard.plugin.listener;
 import dev.mending.wizard.api.WizardAPI;
 import dev.mending.wizard.core.spell.Spell;
 import dev.mending.wizard.core.wand.Wand;
+import dev.mending.wizard.plugin.WizardPlugin;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.title.Title;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nonnull;
+import java.time.Duration;
 import java.util.*;
 
 public class WizardListener implements Listener {
 
-    private final long clickTimeout; // Zeitlimit für Klicks
+    private final WizardPlugin plugin;
     private final Map<UUID, List<Spell.ClickType>> playerClickSequences = new HashMap<>();
     private final Map<UUID, Long> playerLastClickTime = new HashMap<>();
 
     // Konstruktor
-    public WizardListener() {
-        this.clickTimeout = 1000;
+    public WizardListener(@Nonnull WizardPlugin plugin) {
+        this.plugin = plugin;
     }
 
     // Event-Handler für Spielerinteraktionen
@@ -40,7 +46,8 @@ public class WizardListener implements Listener {
         handleClick(player, clickType);
 
         // Action Bar mit den aktuellen Klicks anzeigen
-        updateActionBar(player, playerClickSequences.get(player.getUniqueId()));
+        displayClickSequenz(player, playerClickSequences.get(player.getUniqueId()));
+        playSound(player);
     }
 
 
@@ -55,7 +62,7 @@ public class WizardListener implements Listener {
         List<Spell.ClickType> clicks = playerClickSequences.get(playerId);
 
         // Klicksequenz zurücksetzen, wenn das Zeitlimit überschritten ist
-        if (currentTime - playerLastClickTime.get(playerId) > clickTimeout) {
+        if (currentTime - playerLastClickTime.get(playerId) > plugin.getWizardConfig().getClickTimeout()) {
             clicks.clear();
         }
 
@@ -73,7 +80,7 @@ public class WizardListener implements Listener {
             Wand wand = WizardAPI.getInstance().getWandByItem(player.getInventory().getItemInMainHand());
 
             // Alle Spells der Wand überprüfen
-            for (Spell spell : wand.getSpells()) {
+            for (Spell spell : wand.getBinds()) {
                 if (clicks.equals(spell.getCombination())) {
                     spell.execute(player);
                     break;
@@ -85,26 +92,51 @@ public class WizardListener implements Listener {
         playerLastClickTime.put(playerId, currentTime);
     }
 
+    private void playSound(Player player) {
+        if (plugin.getWizardConfig().isClickSequenzSoundEnabled()) {
+            player.playSound(
+                    player.getLocation(),
+                    Sound.valueOf(plugin.getWizardConfig().getClickSequenzSoundType()),
+                    plugin.getWizardConfig().getClickSequenzSoundVolume(),
+                    plugin.getWizardConfig().getClickSequenzSoundPitch()
+            );
+        }
+    }
+
     // Action Bar aktualisieren
-    private void updateActionBar(Player player, List<Spell.ClickType> clicks) {
-        StringBuilder actionBarText = new StringBuilder();
+    private void displayClickSequenz(Player player, List<Spell.ClickType> clicks) {
+
+        if (!plugin.getWizardConfig().isClickSequenzMessageEnabled()) {
+            return;
+        }
+
+        Component clickSequenzComponent = Component.empty();
 
         // Iteriere über die Klicktypen und füge sie der Actionbar hinzu
         for (int i = 0; i < 3; i++) {  // Immer 3 Klicks anzeigen
+            Component clickComponent;
+
+            // Zeige "L" oder "R" für vorhandene Klicks, sonst "_"
             if (i < clicks.size()) {
-                // Zeige den tatsächlichen Klicktyp (L oder R)
-                actionBarText.append(clicks.get(i) == Spell.ClickType.LEFT ? "L" : "R");
+                clickComponent = clicks.get(i) == Spell.ClickType.LEFT
+                        ? plugin.getWizardConfig().getClickSequenzLeftComponent()
+                        : plugin.getWizardConfig().getClickSequenzRightComponent();
             } else {
-                // Zeige "_" für fehlende Klicks
-                actionBarText.append("_");
+                clickComponent = plugin.getWizardConfig().getClickSequenzEmptyComponent();
             }
 
-            // Füge ein Leerzeichen nach jedem Klick (außer dem letzten) hinzu
+            // Text hinzufügen und bei Bedarf Leerzeichen einfügen
+            clickSequenzComponent = clickSequenzComponent.append(clickComponent);
             if (i < 2) {
-                actionBarText.append(" ");
+                clickSequenzComponent = clickSequenzComponent.append(plugin.getWizardConfig().getClickSequenzSpacerComponent());
             }
         }
 
-        player.sendActionBar(actionBarText.toString());
+        // Sende die ActionBar an den Spieler
+        if (plugin.getWizardConfig().getClickSequenzType().equalsIgnoreCase("ACTIONBAR")) {
+            player.sendActionBar(clickSequenzComponent);
+        } else if (plugin.getWizardConfig().getClickSequenzType().equalsIgnoreCase("TITLE")) {
+            player.showTitle(Title.title(Component.empty(), clickSequenzComponent, Title.Times.times(Duration.ZERO, Duration.ofMillis(plugin.getWizardConfig().getClickTimeout()), Duration.ZERO)));
+        }
     }
 }
