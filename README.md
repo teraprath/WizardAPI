@@ -16,7 +16,9 @@ Wand wand = new Wand("TestWand", new ItemStack(Material.STICK));
 
 // Create custom spell
 Spell spell = new Spell(player -> {
-    player.sendMessage("L-R-R");
+
+    // Spell Logic
+
 }, Spell.ClickType.LEFT, Spell.ClickType.RIGHT, Spell.ClickType.RIGHT);
 
 // Bind spell to wand
