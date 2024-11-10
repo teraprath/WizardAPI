@@ -1,4 +1,5 @@
 # Check out the wiki for more information: https://github.com/teraprath/WizardAPI/wiki
+checkForUpdates: true
 clickSequenz:
   timeout: 1000
   sound:

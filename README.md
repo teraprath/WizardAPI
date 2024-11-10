@@ -6,13 +6,12 @@
 - Simple & lightweight
 - Easily add custom spells using a click combination (R-L-R, L-R-L, etc.)
 - Bind spells to Wands
-- Built-in Mana System (Optionial)
 
 ## Example Usage
 ```java
 
-// Create new wand instance
-Wand wand = new Wand("TestWand", new ItemStack(Material.STICK));
+// Create new wand
+Wand wand = new Wand("custom_wand", new ItemStack(Material.STICK));
 
 // Create custom spell
 Spell spell = new Spell(player -> {
@@ -22,8 +21,8 @@ Spell spell = new Spell(player -> {
 }, Spell.ClickType.LEFT, Spell.ClickType.RIGHT, Spell.ClickType.RIGHT);
 
 // Bind spell to wand
-wand.addSpell(spell);
+wand.bind(spell);
 
 // Register wand
-WizardAPI.getInstance().registerWand(wand);
+WizardAPI.getInstance().register(wand);
 ```

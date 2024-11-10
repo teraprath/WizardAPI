@@ -9,6 +9,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class WizardConfig extends ConfigHandler {
 
+    private boolean checkForUpdates;
+
     private long clickTimeout;
 
     private boolean clickSequenzSoundEnabled;
@@ -30,6 +32,8 @@ public class WizardConfig extends ConfigHandler {
     @Override
     public void onLoad(FileConfiguration config) {
 
+        this.checkForUpdates = config.getBoolean("checkForUpdates");
+
         this.clickTimeout = config.getLong("clickSequenz.timeout");
 
         this.clickSequenzSoundEnabled = config.getBoolean("clickSequenz.sound.enabled");
@@ -48,6 +52,10 @@ public class WizardConfig extends ConfigHandler {
     @Override
     public void onPreSave(FileConfiguration config) {
 
+    }
+
+    public boolean isCheckForUpdates() {
+        return checkForUpdates;
     }
 
     public long getClickTimeout() {
