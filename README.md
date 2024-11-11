@@ -31,3 +31,4 @@ wand.bind(spell);
 // Register wand
 WizardAPI.getInstance().register(wand);
 ```
+Visit [wiki](https://github.com/teraprath/WizardAPI/wiki/) page to see usage guide.
